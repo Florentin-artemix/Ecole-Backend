@@ -18,7 +18,7 @@ public class EleveDTO {
     private String lieuNaissance;
     private String numeroPermanent;
     private String classe;
-    private String ecole;
+    private EcoleDTO ecole;
     private String code;
     private String ville;
     private String commune_territoire;

@@ -19,14 +19,18 @@ public class NoteService {
     }
     
     public Double calculerTotalGeneral(List<Note> notes) {
+        // Total général = Somme des notes obtenues dans chaque cours
+        // Exemple : 10 + 25 + 4 = 39 points
         return notes.stream()
-                .mapToDouble(note -> note.getValeur() * note.getCours().getPonderation())
+                .mapToDouble(Note::getValeur)
                 .sum();
     }
     
     public Double calculerMaximumGeneral(List<Note> notes) {
+        // Maximum général = Somme des pondérations (qui sont les notes maximales possibles)
+        // Exemple : 20 + 40 + 10 = 70 points
         return notes.stream()
-                .mapToDouble(note -> 20.0 * note.getCours().getPonderation())
+                .mapToDouble(note -> note.getCours().getPonderation())
                 .sum();
     }
     
@@ -34,7 +38,9 @@ public class NoteService {
         if (maximumGeneral == null || maximumGeneral == 0) {
             return 0.0;
         }
-        return (totalGeneral / maximumGeneral) * 100;
+        // Pourcentage = (Total général × 100) / Maximum général
+        // Exemple : (39 × 100) / 70 = 55.7%
+        return (totalGeneral * 100.0) / maximumGeneral;
     }
     
     public Long compterElevesClasse(String classe) {

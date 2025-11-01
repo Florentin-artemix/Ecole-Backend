@@ -16,6 +16,6 @@ public class ParentEleveDTO {
     private Long eleveId;
     private String eleveNom;
     private String eleveClasse;
-    private String eleveEcole;
+    private EcoleDTO eleveEcole;
     private String lienParente;
 }

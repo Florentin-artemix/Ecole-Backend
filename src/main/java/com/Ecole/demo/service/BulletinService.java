@@ -1,6 +1,7 @@
 package com.Ecole.demo.service;
 
 import com.Ecole.demo.dto.BulletinDTO;
+import com.Ecole.demo.dto.EcoleDTO;
 import com.Ecole.demo.dto.NoteDTO;
 import com.Ecole.demo.entity.Eleve;
 import com.Ecole.demo.entity.Note;
@@ -73,7 +74,22 @@ public class BulletinService {
         bulletin.setLieuNaissance(eleve.getLieuNaissance());
         bulletin.setNumeroPermanent(eleve.getNumeroPermanent());
         bulletin.setClasse(eleve.getClasse());
-        bulletin.setEcole(eleve.getEcole());
+        
+        // Convertir l'entité Ecole en EcoleDTO
+        if (eleve.getEcole() != null) {
+            EcoleDTO ecoleDTO = new EcoleDTO();
+            ecoleDTO.setId(eleve.getEcole().getId());
+            ecoleDTO.setNomEcole(eleve.getEcole().getNomEcole());
+            ecoleDTO.setCodeEcole(eleve.getEcole().getCodeEcole());
+            ecoleDTO.setVille(eleve.getEcole().getVille());
+            ecoleDTO.setCommune_territoire(eleve.getEcole().getCommune_territoire());
+            ecoleDTO.setAdresse(eleve.getEcole().getAdresse());
+            ecoleDTO.setTelephone(eleve.getEcole().getTelephone());
+            ecoleDTO.setEmail(eleve.getEcole().getEmail());
+            ecoleDTO.setDevise(eleve.getEcole().getDevise());
+            bulletin.setEcole(ecoleDTO);
+        }
+        
         bulletin.setPeriode(periode.getLabel());
         bulletin.setNumeroPeriode(periode.name());
         bulletin.setCode(eleve.getCode());

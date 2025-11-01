@@ -60,10 +60,9 @@ public class Eleve {
     @Column(nullable = false)
     private String classe;
 
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false)
-    private String ecole;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ecole_id", nullable = false)
+    private Ecole ecole;
 
     @NotNull
     @Size(min = 1, max = 50)

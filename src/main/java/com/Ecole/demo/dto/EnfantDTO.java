@@ -13,6 +13,6 @@ public class EnfantDTO {
     private String sexe;
     private String dateNaissance;
     private String classe;
-    private String ecole;
+    private EcoleDTO ecole;
     private String lienParente;
 }

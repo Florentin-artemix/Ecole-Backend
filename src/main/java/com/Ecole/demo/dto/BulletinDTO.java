@@ -26,7 +26,7 @@ public class BulletinDTO {
     
     private String classe;
     
-    private String ecole;
+    private EcoleDTO ecole;
     
     private String periode;
     
