@@ -1,0 +1,30 @@
+[
+  {
+    "nomComplet": "Admin Principal",
+    "role": "ADMIN",
+    "telephone": "+243812345678",
+    "email": "admin@lycee-excellence.cd",
+    "motDePasse": "Admin123!"
+  },
+  {
+    "nomComplet": "Prof. Jean Mukendi",
+    "role": "PROFESSEUR",
+    "telephone": "+243823456789",
+    "email": "j.mukendi@lycee-excellence.cd",
+    "motDePasse": "Prof123!"
+  },
+  {
+    "nomComplet": "Marie Tshala Parent",
+    "role": "PARENT",
+    "telephone": "+243834567890",
+    "email": "m.tshala@gmail.com",
+    "motDePasse": "Parent123!"
+  },
+  {
+    "nomComplet": "Percepteur Finance",
+    "role": "PERCEPTEUR",
+    "telephone": "+243845678901",
+    "email": "percepteur@lycee-excellence.cd",
+    "motDePasse": "Percep123!"
+  }
+]

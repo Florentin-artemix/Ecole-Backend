@@ -1,0 +1,65 @@
+[
+  {
+    "eleveId": 1,
+    "professeurId": 1,
+    "typeConduite": "BON",
+    "periode": "PREMIERE",
+    "commentaire": "Élève respectueux et attentif en classe"
+  },
+  {
+    "eleveId": 1,
+    "professeurId": 2,
+    "typeConduite": "TRES_BON",
+    "periode": "PREMIERE",
+    "commentaire": "Excellente participation"
+  },
+  {
+    "eleveId": 1,
+    "professeurId": 3,
+    "typeConduite": "BON",
+    "periode": "PREMIERE",
+    "commentaire": "Comportement correct"
+  },
+  {
+    "eleveId": 2,
+    "professeurId": 1,
+    "typeConduite": "EXCELLENT",
+    "periode": "PREMIERE",
+    "commentaire": "Élève exemplaire"
+  },
+  {
+    "eleveId": 2,
+    "professeurId": 2,
+    "typeConduite": "EXCELLENT",
+    "periode": "PREMIERE",
+    "commentaire": "Toujours respectueux"
+  },
+  {
+    "eleveId": 2,
+    "professeurId": 3,
+    "typeConduite": "TRES_BON",
+    "periode": "PREMIERE",
+    "commentaire": "Très bonne attitude"
+  },
+  {
+    "eleveId": 3,
+    "professeurId": 1,
+    "typeConduite": "ASSEZ_BON",
+    "periode": "PREMIERE",
+    "commentaire": "Peut mieux faire"
+  },
+  {
+    "eleveId": 3,
+    "professeurId": 2,
+    "typeConduite": "PASSABLE",
+    "periode": "PREMIERE",
+    "commentaire": "Quelques bavardages"
+  },
+  {
+    "eleveId": 3,
+    "professeurId": 3,
+    "typeConduite": "ASSEZ_BON",
+    "periode": "PREMIERE",
+    "commentaire": "Doit être plus attentif"
+  }
+]

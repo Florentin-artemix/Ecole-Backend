@@ -1,0 +1,44 @@
+[
+  {
+    "eleveId": 2,
+    "coursId": 1,
+    "valeur": 12.5,
+    "periode": "PREMIERE"
+  },
+  {
+    "eleveId": 2,
+    "coursId": 2,
+    "valeur": 14.0,
+    "periode": "PREMIERE"
+  },
+  {
+    "eleveId": 2,
+    "coursId": 3,
+    "valeur": 11.5,
+    "periode": "PREMIERE"
+  },
+  {
+    "eleveId": 3,
+    "coursId": 1,
+    "valeur": 18.5,
+    "periode": "PREMIERE"
+  },
+  {
+    "eleveId": 3,
+    "coursId": 2,
+    "valeur": 17.0,
+    "periode": "PREMIERE"
+  },
+  {
+    "eleveId": 3,
+    "coursId": 3,
+    "valeur": 19.5,
+    "periode": "PREMIERE"
+  },
+  {
+    "eleveId": 3,
+    "coursId": 4,
+    "valeur": 18.0,
+    "periode": "PREMIERE"
+  }
+]

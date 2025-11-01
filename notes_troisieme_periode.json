@@ -1,0 +1,38 @@
+[
+  {
+    "eleveId": 1,
+    "coursId": 1,
+    "valeur": 17.5,
+    "periode": "TROISIEME"
+  },
+  {
+    "eleveId": 1,
+    "coursId": 2,
+    "valeur": 16.0,
+    "periode": "TROISIEME"
+  },
+  {
+    "eleveId": 1,
+    "coursId": 3,
+    "valeur": 18.0,
+    "periode": "TROISIEME"
+  },
+  {
+    "eleveId": 1,
+    "coursId": 4,
+    "valeur": 15.5,
+    "periode": "TROISIEME"
+  },
+  {
+    "eleveId": 1,
+    "coursId": 5,
+    "valeur": 16.25,
+    "periode": "TROISIEME"
+  },
+  {
+    "eleveId": 1,
+    "coursId": 6,
+    "valeur": 19.0,
+    "periode": "TROISIEME"
+  }
+]

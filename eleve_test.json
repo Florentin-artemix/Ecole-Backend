@@ -1,0 +1,14 @@
+{
+  "nom": "Kabongo",
+  "postnom": "Florent",
+  "prenom": "Jean",
+  "sexe": "M",
+  "dateNaissance": "2008-04-12",
+  "lieuNaissance": "Bukavu",
+  "numeroPermanent": "12345",
+  "classe": "3e Scientifique",
+  "ecole": "Institut Umoja",
+  "code": "EP1234",
+  "ville": "Bukavu",
+  "commune_territoire": "Bagira"
+}

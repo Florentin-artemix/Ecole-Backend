@@ -1,0 +1,37 @@
+[
+  {
+    "nomComplet": "Prof. KASONGO Albert",
+    "role": "PROFESSEUR",
+    "telephone": "0998765001",
+    "email": "kasongo.albert@lycee.cd",
+    "motDePasse": "Prof2025!"
+  },
+  {
+    "nomComplet": "Prof. MWAMBA Sylvie",
+    "role": "PROFESSEUR",
+    "telephone": "0998765002",
+    "email": "mwamba.sylvie@lycee.cd",
+    "motDePasse": "Prof2025!"
+  },
+  {
+    "nomComplet": "Prof. KAMBALE Henri",
+    "role": "PROFESSEUR",
+    "telephone": "0998765003",
+    "email": "kambale.henri@lycee.cd",
+    "motDePasse": "Prof2025!"
+  },
+  {
+    "nomComplet": "Prof. LUBOYA Christine",
+    "role": "PROFESSEUR",
+    "telephone": "0998765004",
+    "email": "luboya.christine@lycee.cd",
+    "motDePasse": "Prof2025!"
+  },
+  {
+    "nomComplet": "Prof. NKULU François",
+    "role": "PROFESSEUR",
+    "telephone": "0998765005",
+    "email": "nkulu.francois@lycee.cd",
+    "motDePasse": "Prof2025!"
+  }
+]

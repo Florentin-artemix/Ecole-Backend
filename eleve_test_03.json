@@ -1,0 +1,14 @@
+{
+  "nom": "Mwamba",
+  "postnom": "Pierre",
+  "prenom": "André",
+  "sexe": "M",
+  "dateNaissance": "2009-01-15",
+  "lieuNaissance": "Kinshasa",
+  "numeroPermanent": "11223344",
+  "classe": "2e Scientifique",
+  "ecole": "Collège Saint-Joseph",
+  "code": "CSJ9999",
+  "ville": "Kinshasa",
+  "commune_territoire": "Gombe"
+}

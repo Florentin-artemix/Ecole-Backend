@@ -1,0 +1,52 @@
+[
+  {
+    "nomCours": "Mathématiques",
+    "ponderation": 6,
+    "professeurId": 1
+  },
+  {
+    "nomCours": "Physique",
+    "ponderation": 5,
+    "professeurId": 1
+  },
+  {
+    "nomCours": "Chimie",
+    "ponderation": 5,
+    "professeurId": 2
+  },
+  {
+    "nomCours": "Biologie",
+    "ponderation": 4,
+    "professeurId": 2
+  },
+  {
+    "nomCours": "Français",
+    "ponderation": 4,
+    "professeurId": 3
+  },
+  {
+    "nomCours": "Anglais",
+    "ponderation": 3,
+    "professeurId": 3
+  },
+  {
+    "nomCours": "Histoire",
+    "ponderation": 2,
+    "professeurId": 4
+  },
+  {
+    "nomCours": "Géographie",
+    "ponderation": 2,
+    "professeurId": 4
+  },
+  {
+    "nomCours": "Éducation Civique",
+    "ponderation": 2,
+    "professeurId": 5
+  },
+  {
+    "nomCours": "Éducation Physique",
+    "ponderation": 2,
+    "professeurId": 5
+  }
+]

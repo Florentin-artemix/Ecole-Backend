@@ -1,0 +1,86 @@
+[
+  {
+    "eleveId": 1,
+    "professeurId": 1,
+    "typeConduite": "BON",
+    "periode": "PREMIERE",
+    "commentaire": "Élève respectueux et attentif en classe de mathématiques"
+  },
+  {
+    "eleveId": 1,
+    "professeurId": 2,
+    "typeConduite": "BON",
+    "periode": "PREMIERE",
+    "commentaire": "Bonne participation en français"
+  },
+  {
+    "eleveId": 1,
+    "professeurId": 3,
+    "typeConduite": "TRES_BON",
+    "periode": "PREMIERE",
+    "commentaire": "Excellente attitude en physique"
+  },
+  {
+    "eleveId": 1,
+    "professeurId": 4,
+    "typeConduite": "BON",
+    "periode": "PREMIERE",
+    "commentaire": "Comportement correct en histoire"
+  },
+  {
+    "eleveId": 2,
+    "professeurId": 1,
+    "typeConduite": "EXCELLENT",
+    "periode": "PREMIERE",
+    "commentaire": "Élève exemplaire, toujours respectueux"
+  },
+  {
+    "eleveId": 2,
+    "professeurId": 2,
+    "typeConduite": "EXCELLENT",
+    "periode": "PREMIERE",
+    "commentaire": "Modèle pour la classe"
+  },
+  {
+    "eleveId": 2,
+    "professeurId": 3,
+    "typeConduite": "EXCELLENT",
+    "periode": "PREMIERE",
+    "commentaire": "Excellente attitude, aide les autres"
+  },
+  {
+    "eleveId": 2,
+    "professeurId": 4,
+    "typeConduite": "TRES_BON",
+    "periode": "PREMIERE",
+    "commentaire": "Très bonne conduite générale"
+  },
+  {
+    "eleveId": 3,
+    "professeurId": 1,
+    "typeConduite": "ASSEZ_BON",
+    "periode": "PREMIERE",
+    "commentaire": "Quelques bavardages à corriger"
+  },
+  {
+    "eleveId": 3,
+    "professeurId": 2,
+    "typeConduite": "PASSABLE",
+    "periode": "PREMIERE",
+    "commentaire": "Doit être plus attentif en classe"
+  },
+  {
+    "eleveId": 3,
+    "professeurId": 3,
+    "typeConduite": "ASSEZ_BON",
+    "periode": "PREMIERE",
+    "commentaire": "Peut mieux faire, manque de concentration"
+  },
+  {
+    "eleveId": 3,
+    "professeurId": 4,
+    "typeConduite": "ASSEZ_BON",
+    "periode": "PREMIERE",
+    "commentaire": "Doit respecter davantage les consignes"
+  }
+]
