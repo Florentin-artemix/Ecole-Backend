@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="005-create-utilisateur-table" author="ecole">
+        <createTable tableName="utilisateur">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nom_complet" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="telephone" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="mot_de_passe" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="actif" type="BOOLEAN" defaultValue="true">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createIndex indexName="idx_utilisateur_email" tableName="utilisateur">
+            <column name="email"/>
+        </createIndex>
+        <createIndex indexName="idx_utilisateur_role" tableName="utilisateur">
+            <column name="role"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

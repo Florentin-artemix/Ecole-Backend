@@ -39,9 +39,16 @@ public class EleveService {
             eleve.setEcole(ecole);
         }
         
-        eleve.setCode(eleveDTO.getCode());
-        eleve.setVille(eleveDTO.getVille());
-        eleve.setCommune_territoire(eleveDTO.getCommune_territoire());
+        // Ces champs sont optionnels car les informations sont dans l'entité Ecole
+        if (eleveDTO.getCode() != null) {
+            eleve.setCode(eleveDTO.getCode());
+        }
+        if (eleveDTO.getVille() != null) {
+            eleve.setVille(eleveDTO.getVille());
+        }
+        if (eleveDTO.getCommune_territoire() != null) {
+            eleve.setCommune_territoire(eleveDTO.getCommune_territoire());
+        }
         
         Eleve saved = eleveRepository.save(eleve);
         return convertToDTO(saved);
@@ -79,9 +86,16 @@ public class EleveService {
             eleve.setEcole(ecole);
         }
         
-        eleve.setCode(eleveDTO.getCode());
-        eleve.setVille(eleveDTO.getVille());
-        eleve.setCommune_territoire(eleveDTO.getCommune_territoire());
+        // Ces champs sont optionnels car les informations sont dans l'entité Ecole
+        if (eleveDTO.getCode() != null) {
+            eleve.setCode(eleveDTO.getCode());
+        }
+        if (eleveDTO.getVille() != null) {
+            eleve.setVille(eleveDTO.getVille());
+        }
+        if (eleveDTO.getCommune_territoire() != null) {
+            eleve.setCommune_territoire(eleveDTO.getCommune_territoire());
+        }
         
         Eleve updated = eleveRepository.save(eleve);
         return convertToDTO(updated);

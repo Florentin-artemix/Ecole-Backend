@@ -64,19 +64,16 @@ public class Eleve {
     @JoinColumn(name = "ecole_id", nullable = false)
     private Ecole ecole;
 
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(nullable = false)
+    @Size(max = 50)
+    @Column(nullable = true)
     private String code;
 
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false)
+    @Size(max = 100)
+    @Column(nullable = true)
     private String ville;
 
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false)
+    @Size(max = 100)
+    @Column(nullable = true)
     private String commune_territoire;
 
     @JsonIgnore
