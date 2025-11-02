@@ -11,6 +11,8 @@ public class CoursDTO {
     private Long id;
     private String nomCours;
     private Integer ponderation;
+    private Long classeId;
+    private String classeNom;
     private String professeurNom;
     private Long professeurId;
 }

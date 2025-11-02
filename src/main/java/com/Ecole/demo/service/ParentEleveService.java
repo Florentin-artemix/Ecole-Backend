@@ -82,7 +82,7 @@ public class ParentEleveService {
                     enfantDTO.setNomComplet(eleve.getNom() + " " + eleve.getPostnom() + " " + eleve.getPrenom());
                     enfantDTO.setSexe(eleve.getSexe());
                     enfantDTO.setDateNaissance(eleve.getDateNaissance().format(DateTimeFormatter.ISO_DATE));
-                    enfantDTO.setClasse(eleve.getClasse());
+                    enfantDTO.setClasse(eleve.getClasse() != null ? eleve.getClasse().getNom() : null);
                     
                     // Convertir l'entité Ecole en EcoleDTO
                     if (eleve.getEcole() != null) {
@@ -165,7 +165,7 @@ public class ParentEleveService {
         dto.setEleveNom(relation.getEleve().getNom() + " " + 
                        relation.getEleve().getPostnom() + " " + 
                        relation.getEleve().getPrenom());
-        dto.setEleveClasse(relation.getEleve().getClasse());
+        dto.setEleveClasse(relation.getEleve().getClasse() != null ? relation.getEleve().getClasse().getNom() : null);
         
         // Convertir l'entité Ecole en EcoleDTO
         if (relation.getEleve().getEcole() != null) {

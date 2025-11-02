@@ -17,7 +17,8 @@ public class EleveDTO {
     private LocalDate dateNaissance;
     private String lieuNaissance;
     private String numeroPermanent;
-    private String classe;
+    private Long classeId;
+    private String classeNom;
     private EcoleDTO ecole;
     private String code;
     private String ville;

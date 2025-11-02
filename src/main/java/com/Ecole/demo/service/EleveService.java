@@ -2,8 +2,10 @@ package com.Ecole.demo.service;
 
 import com.Ecole.demo.dto.EcoleDTO;
 import com.Ecole.demo.dto.EleveDTO;
+import com.Ecole.demo.entity.Classe;
 import com.Ecole.demo.entity.Ecole;
 import com.Ecole.demo.entity.Eleve;
+import com.Ecole.demo.repository.ClasseRepository;
 import com.Ecole.demo.repository.EcoleRepository;
 import com.Ecole.demo.repository.EleveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class EleveService {
     @Autowired
     private EcoleRepository ecoleRepository;
     
+    @Autowired
+    private ClasseRepository classeRepository;
+    
     public EleveDTO createEleve(EleveDTO eleveDTO) {
         Eleve eleve = new Eleve();
         eleve.setNom(eleveDTO.getNom());
@@ -30,7 +35,15 @@ public class EleveService {
         eleve.setDateNaissance(eleveDTO.getDateNaissance());
         eleve.setLieuNaissance(eleveDTO.getLieuNaissance());
         eleve.setNumeroPermanent(eleveDTO.getNumeroPermanent());
-        eleve.setClasse(eleveDTO.getClasse());
+        
+        // Récupérer l'entité Classe depuis la base de données
+        if (eleveDTO.getClasseId() != null) {
+            Classe classe = classeRepository.findById(eleveDTO.getClasseId())
+                    .orElseThrow(() -> new RuntimeException("Classe non trouvée avec l'ID: " + eleveDTO.getClasseId()));
+            eleve.setClasse(classe);
+        } else {
+            throw new RuntimeException("L'ID de la classe est obligatoire");
+        }
         
         // Récupérer l'entité Ecole depuis la base de données
         if (eleveDTO.getEcole() != null && eleveDTO.getEcole().getId() != null) {
@@ -77,7 +90,13 @@ public class EleveService {
         eleve.setDateNaissance(eleveDTO.getDateNaissance());
         eleve.setLieuNaissance(eleveDTO.getLieuNaissance());
         eleve.setNumeroPermanent(eleveDTO.getNumeroPermanent());
-        eleve.setClasse(eleveDTO.getClasse());
+        
+        // Récupérer l'entité Classe depuis la base de données
+        if (eleveDTO.getClasseId() != null) {
+            Classe classe = classeRepository.findById(eleveDTO.getClasseId())
+                    .orElseThrow(() -> new RuntimeException("Classe non trouvée avec l'ID: " + eleveDTO.getClasseId()));
+            eleve.setClasse(classe);
+        }
         
         // Récupérer l'entité Ecole depuis la base de données
         if (eleveDTO.getEcole() != null && eleveDTO.getEcole().getId() != null) {
@@ -129,7 +148,8 @@ public class EleveService {
                 eleve.getDateNaissance(),
                 eleve.getLieuNaissance(),
                 eleve.getNumeroPermanent(),
-                eleve.getClasse(),
+                eleve.getClasse() != null ? eleve.getClasse().getId() : null,
+                eleve.getClasse() != null ? eleve.getClasse().getNom() : null,
                 ecoleDTO,
                 eleve.getCode(),
                 eleve.getVille(),

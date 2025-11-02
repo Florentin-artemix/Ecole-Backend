@@ -1,5 +1,6 @@
 package com.Ecole.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -28,11 +29,17 @@ public class Cours {
     @Column(nullable = false)
     private Integer ponderation;
 
-    @NotNull
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "classe_id", nullable = false)
+    private Classe classe;
+
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "professeur_id", nullable = false)
     private Utilisateur professeur;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Note> notes;
 }

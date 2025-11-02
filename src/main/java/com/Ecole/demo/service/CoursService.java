@@ -2,9 +2,11 @@ package com.Ecole.demo.service;
 
 import com.Ecole.demo.dto.CoursDTO;
 import com.Ecole.demo.entity.Cours;
+import com.Ecole.demo.entity.Classe;
 import com.Ecole.demo.entity.Utilisateur;
 import com.Ecole.demo.entity.Role;
 import com.Ecole.demo.repository.CoursRepository;
+import com.Ecole.demo.repository.ClasseRepository;
 import com.Ecole.demo.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,15 @@ public class CoursService {
     private CoursRepository coursRepository;
     
     @Autowired
+    private ClasseRepository classeRepository;
+    
+    @Autowired
     private UtilisateurRepository utilisateurRepository;
     
     public CoursDTO createCours(CoursDTO coursDTO) {
+        Classe classe = classeRepository.findById(coursDTO.getClasseId())
+                .orElseThrow(() -> new RuntimeException("Classe non trouvée"));
+        
         Utilisateur professeur = utilisateurRepository.findById(coursDTO.getProfesseurId())
                 .orElseThrow(() -> new RuntimeException("Professeur non trouvé"));
         
@@ -32,6 +40,7 @@ public class CoursService {
         Cours cours = new Cours();
         cours.setNomCours(coursDTO.getNomCours());
         cours.setPonderation(coursDTO.getPonderation());
+        cours.setClasse(classe);
         cours.setProfesseur(professeur);
         
         Cours saved = coursRepository.save(cours);
@@ -54,6 +63,9 @@ public class CoursService {
         Cours cours = coursRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cours non trouvé avec l'ID: " + id));
         
+        Classe classe = classeRepository.findById(coursDTO.getClasseId())
+                .orElseThrow(() -> new RuntimeException("Classe non trouvée"));
+        
         Utilisateur professeur = utilisateurRepository.findById(coursDTO.getProfesseurId())
                 .orElseThrow(() -> new RuntimeException("Professeur non trouvé"));
         
@@ -63,6 +75,7 @@ public class CoursService {
         
         cours.setNomCours(coursDTO.getNomCours());
         cours.setPonderation(coursDTO.getPonderation());
+        cours.setClasse(classe);
         cours.setProfesseur(professeur);
         
         Cours updated = coursRepository.save(cours);
@@ -78,6 +91,8 @@ public class CoursService {
                 cours.getId(),
                 cours.getNomCours(),
                 cours.getPonderation(),
+                cours.getClasse().getId(),
+                cours.getClasse().getNom(),
                 cours.getProfesseur().getNomComplet(),
                 cours.getProfesseur().getId()
         );

@@ -56,9 +56,9 @@ public class Eleve {
     private String numeroPermanent;
 
     @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false)
-    private String classe;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "classe_id", nullable = false)
+    private Classe classe;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ecole_id", nullable = false)

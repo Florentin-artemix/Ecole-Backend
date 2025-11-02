@@ -43,23 +43,23 @@ public class NoteService {
         return (totalGeneral * 100.0) / maximumGeneral;
     }
     
-    public Long compterElevesClasse(String classe) {
+    public Long compterElevesClasse(com.Ecole.demo.entity.Classe classe) {
         // Compte le nombre d'élèves ayant au moins une note dans cette classe
         return noteRepository.findAll().stream()
                 .map(note -> note.getEleve())
-                .filter(eleve -> eleve.getClasse().equals(classe))
+                .filter(eleve -> eleve.getClasse() != null && eleve.getClasse().getId().equals(classe.getId()))
                 .map(eleve -> eleve.getId())
                 .distinct()
                 .count();
     }
     
-    public Long determinerPlaceEleve(Long eleveId, String classe, Periode periode) {
+    public Long determinerPlaceEleve(Long eleveId, com.Ecole.demo.entity.Classe classe, Periode periode) {
         // Récupère tous les élèves de la classe avec leurs notes pour cette période
         List<Note> toutesLesNotes = noteRepository.findAll();
         
         // Grouper les notes par élève et calculer leur pourcentage
         var elevesAvecPourcentage = toutesLesNotes.stream()
-                .filter(note -> note.getEleve().getClasse().equals(classe))
+                .filter(note -> note.getEleve().getClasse() != null && note.getEleve().getClasse().getId().equals(classe.getId()))
                 .filter(note -> note.getPeriode().equals(periode))
                 .collect(java.util.stream.Collectors.groupingBy(note -> note.getEleve().getId()))
                 .entrySet().stream()

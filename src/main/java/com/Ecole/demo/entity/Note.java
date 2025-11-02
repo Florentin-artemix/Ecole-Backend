@@ -30,7 +30,7 @@ public class Note {
 
     @NotNull
     @DecimalMin("0")
-    @DecimalMax("20")
+    @DecimalMax("100")
     @Column(name = "valeur", columnDefinition = "DECIMAL(5,2)", nullable = false)
     private Double valeur;
 

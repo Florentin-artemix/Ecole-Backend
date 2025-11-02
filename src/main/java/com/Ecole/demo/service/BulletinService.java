@@ -73,7 +73,7 @@ public class BulletinService {
         bulletin.setDateNaissance(eleve.getDateNaissance().format(DateTimeFormatter.ISO_DATE));
         bulletin.setLieuNaissance(eleve.getLieuNaissance());
         bulletin.setNumeroPermanent(eleve.getNumeroPermanent());
-        bulletin.setClasse(eleve.getClasse());
+        bulletin.setClasse(eleve.getClasse() != null ? eleve.getClasse().getNom() : null);
         
         // Convertir l'entité Ecole en EcoleDTO
         if (eleve.getEcole() != null) {
