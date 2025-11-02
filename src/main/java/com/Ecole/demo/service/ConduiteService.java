@@ -1,5 +1,6 @@
 package com.Ecole.demo.service;
 
+import com.Ecole.demo.dto.ConduiteCalculDTO;
 import com.Ecole.demo.dto.ConduiteCreateDTO;
 import com.Ecole.demo.dto.ConduiteDTO;
 import com.Ecole.demo.entity.Conduite;
@@ -58,6 +59,17 @@ public class ConduiteService {
         return convertToDTO(conduite);
     }
     
+    /**
+     * Récupère toutes les conduites
+     * @return Liste de toutes les conduites
+     */
+    public List<ConduiteDTO> getAllConduites() {
+        return conduiteRepository.findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+    
     public List<ConduiteDTO> getConduitesByEleveAndPeriode(Long eleveId, Periode periode) {
         return conduiteRepository.findByEleveIdAndPeriode(eleveId, periode)
                 .stream()
@@ -72,16 +84,76 @@ public class ConduiteService {
                 .collect(Collectors.toList());
     }
     
-    public String getMostFrequentConduite(Long eleveId, Periode periode) {
-        List<Object[]> results = conduiteRepository.findMostFrequentConduiteByEleveAndPeriode(eleveId, periode);
+    /**
+     * Calcule la conduite finale d'un élève pour une période donnée
+     * Basé sur le pourcentage moyen des notes de conduite
+     * @param eleveId L'ID de l'élève
+     * @param periode La période concernée
+     * @return Un objet ConduiteCalculDTO avec tous les détails du calcul
+     */
+    public ConduiteCalculDTO calculerConduiteFinale(Long eleveId, Periode periode) {
+        Eleve eleve = eleveRepository.findById(eleveId)
+                .orElseThrow(() -> new RuntimeException("Élève non trouvé"));
         
-        if (results.isEmpty()) {
-            return "Non évalué"; // Par défaut si aucune conduite n'a été attribuée
+        // Récupérer toutes les conduites de l'élève pour la période
+        List<Conduite> conduites = conduiteRepository.findByEleveIdAndPeriode(eleveId, periode);
+        
+        ConduiteCalculDTO resultat = new ConduiteCalculDTO();
+        resultat.setEleveId(eleveId);
+        resultat.setEleveNom(eleve.getNom() + " " + eleve.getPostnom() + " " + eleve.getPrenom());
+        resultat.setPeriode(periode.name());
+        resultat.setNombreEvaluations(conduites.size());
+        
+        if (conduites.isEmpty()) {
+            resultat.setPourcentageMoyen(0.0);
+            resultat.setMentionFinale(null);
+            resultat.setAppreciation("Aucune évaluation de conduite disponible");
+            return resultat;
         }
         
-        // La première ligne contient la conduite la plus fréquente
-        TypeConduite mostFrequent = (TypeConduite) results.get(0)[0];
-        return mostFrequent.getLabel();
+        // Calculer le pourcentage moyen
+        double sommePourcentages = conduites.stream()
+                .mapToDouble(c -> c.getTypeConduite().getValeurNumerique())
+                .sum();
+        
+        double pourcentageMoyen = sommePourcentages / conduites.size();
+        resultat.setPourcentageMoyen(Math.round(pourcentageMoyen * 100.0) / 100.0); // Arrondir à 2 décimales
+        
+        // Déterminer la mention finale selon le pourcentage
+        TypeConduite mentionFinale = TypeConduite.fromPourcentage(pourcentageMoyen);
+        resultat.setMentionFinale(mentionFinale);
+        
+        // Générer l'appréciation automatique
+        resultat.genererAppreciation();
+        
+        return resultat;
+    }
+    
+    /**
+     * Retourne uniquement la mention finale sous forme de String (pour compatibilité)
+     * @param eleveId L'ID de l'élève
+     * @param periode La période concernée
+     * @return La mention finale ou "Non évalué"
+     */
+    public String getMostFrequentConduite(Long eleveId, Periode periode) {
+        ConduiteCalculDTO calcul = calculerConduiteFinale(eleveId, periode);
+        
+        if (calcul.getMentionFinale() == null) {
+            return "Non évalué";
+        }
+        
+        return calcul.getMentionFinale().getLabel();
+    }
+    
+    /**
+     * Retourne le pourcentage de conduite pour un élève
+     * @param eleveId L'ID de l'élève
+     * @param periode La période concernée
+     * @return Le pourcentage moyen (0-100)
+     */
+    public Double getPourcentageConduite(Long eleveId, Periode periode) {
+        ConduiteCalculDTO calcul = calculerConduiteFinale(eleveId, periode);
+        return calcul.getPourcentageMoyen();
     }
     
     public ConduiteDTO updateConduite(Long id, ConduiteCreateDTO dto) {

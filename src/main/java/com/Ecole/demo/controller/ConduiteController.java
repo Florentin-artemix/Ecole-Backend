@@ -32,6 +32,11 @@ public class ConduiteController {
         return ResponseEntity.ok(conduiteService.getConduiteById(id));
     }
     
+    @GetMapping
+    public ResponseEntity<List<ConduiteDTO>> getAllConduites() {
+        return ResponseEntity.ok(conduiteService.getAllConduites());
+    }
+    
     @GetMapping("/eleve/{eleveId}/periode/{periode}")
     public ResponseEntity<List<ConduiteDTO>> getConduitesByEleveAndPeriode(
             @PathVariable Long eleveId, 
@@ -51,6 +56,20 @@ public class ConduiteController {
             @PathVariable Long eleveId, 
             @PathVariable Periode periode) {
         return ResponseEntity.ok(conduiteService.getMostFrequentConduite(eleveId, periode));
+    }
+    
+    @GetMapping("/eleve/{eleveId}/periode/{periode}/calcul")
+    public ResponseEntity<com.Ecole.demo.dto.ConduiteCalculDTO> calculerConduiteFinale(
+            @PathVariable Long eleveId, 
+            @PathVariable Periode periode) {
+        return ResponseEntity.ok(conduiteService.calculerConduiteFinale(eleveId, periode));
+    }
+    
+    @GetMapping("/eleve/{eleveId}/periode/{periode}/pourcentage")
+    public ResponseEntity<Double> getPourcentageConduite(
+            @PathVariable Long eleveId, 
+            @PathVariable Periode periode) {
+        return ResponseEntity.ok(conduiteService.getPourcentageConduite(eleveId, periode));
     }
     
     @PutMapping("/{id}")

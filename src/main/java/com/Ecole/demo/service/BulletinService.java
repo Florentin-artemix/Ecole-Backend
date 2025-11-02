@@ -101,7 +101,7 @@ public class BulletinService {
         bulletin.setPourcentage(Math.round(pourcentage * 100.0) / 100.0);
         bulletin.setMention(mention);
         
-        // Calcul de la conduite la plus fréquente
+        // Calcul de la conduite finale basée sur le pourcentage moyen
         String conduite = conduiteService.getMostFrequentConduite(eleveId, periode);
         bulletin.setConduite(conduite);
         

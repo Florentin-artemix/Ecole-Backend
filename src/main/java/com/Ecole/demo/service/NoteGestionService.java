@@ -1,5 +1,6 @@
 package com.Ecole.demo.service;
 
+import com.Ecole.demo.dto.ConduiteCreateDTO;
 import com.Ecole.demo.dto.NoteCreateDTO;
 import com.Ecole.demo.dto.NoteDTO;
 import com.Ecole.demo.entity.Cours;
@@ -26,6 +27,9 @@ public class NoteGestionService {
     @Autowired
     private CoursRepository coursRepository;
     
+    @Autowired
+    private ConduiteService conduiteService;
+    
     public NoteDTO createNote(NoteCreateDTO noteDTO) {
         Eleve eleve = eleveRepository.findById(noteDTO.getEleveId())
                 .orElseThrow(() -> new RuntimeException("Elève non trouvé"));
@@ -40,6 +44,20 @@ public class NoteGestionService {
         note.setPeriode(noteDTO.getPeriode());
         
         Note savedNote = noteRepository.save(note);
+        
+        // Si le professeur a également fourni une note de conduite, la créer automatiquement
+        if (noteDTO.getTypeConduite() != null) {
+            ConduiteCreateDTO conduiteDTO = new ConduiteCreateDTO();
+            conduiteDTO.setEleveId(noteDTO.getEleveId());
+            conduiteDTO.setProfesseurId(cours.getProfesseur().getId()); // Le professeur du cours
+            conduiteDTO.setTypeConduite(noteDTO.getTypeConduite());
+            conduiteDTO.setPeriode(noteDTO.getPeriode());
+            conduiteDTO.setCommentaire(noteDTO.getCommentaireConduite());
+            
+            // Créer la conduite
+            conduiteService.createConduite(conduiteDTO);
+        }
+        
         return convertToDTO(savedNote);
     }
     
@@ -72,6 +90,20 @@ public class NoteGestionService {
         note.setPeriode(noteDTO.getPeriode());
         
         Note updatedNote = noteRepository.save(note);
+        
+        // Si le professeur a également fourni une note de conduite, la créer automatiquement
+        if (noteDTO.getTypeConduite() != null) {
+            ConduiteCreateDTO conduiteDTO = new ConduiteCreateDTO();
+            conduiteDTO.setEleveId(noteDTO.getEleveId());
+            conduiteDTO.setProfesseurId(cours.getProfesseur().getId());
+            conduiteDTO.setTypeConduite(noteDTO.getTypeConduite());
+            conduiteDTO.setPeriode(noteDTO.getPeriode());
+            conduiteDTO.setCommentaire(noteDTO.getCommentaireConduite());
+            
+            // Créer la conduite
+            conduiteService.createConduite(conduiteDTO);
+        }
+        
         return convertToDTO(updatedNote);
     }
     
