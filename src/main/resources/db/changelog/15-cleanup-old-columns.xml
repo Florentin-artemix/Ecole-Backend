@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <!-- Supprimer les anciennes colonnes VARCHAR classe et ecole -->
+    <changeSet id="015-01-drop-old-classe-column-eleve" author="ecole">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="eleve" columnName="classe"/>
+        </preConditions>
+        <dropColumn tableName="eleve" columnName="classe"/>
+    </changeSet>
+
+    <changeSet id="015-02-drop-old-ecole-column-eleve" author="ecole">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="eleve" columnName="ecole"/>
+        </preConditions>
+        <dropColumn tableName="eleve" columnName="ecole"/>
+    </changeSet>
+
+</databaseChangeLog>

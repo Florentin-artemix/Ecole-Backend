@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <!-- Étape 1: Ajouter classe_id comme NULLABLE -->
+    <changeSet id="013-01-add-classe-id-to-cours-nullable" author="ecole">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="cours" columnName="classe_id"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="cours">
+            <column name="classe_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <!-- Étape 2: Mettre à jour avec la première classe disponible -->
+    <changeSet id="013-02-update-cours-classe-id" author="ecole">
+        <sql>
+            UPDATE cours 
+            SET classe_id = (SELECT MIN(id) FROM classe)
+            WHERE classe_id IS NULL;
+        </sql>
+    </changeSet>
+
+    <!-- Étape 3: Ajouter la contrainte NOT NULL -->
+    <changeSet id="013-03-add-not-null-constraint-cours" author="ecole">
+        <addNotNullConstraint tableName="cours" columnName="classe_id" columnDataType="BIGINT"/>
+    </changeSet>
+
+    <!-- Étape 4: Ajouter la clé étrangère -->
+    <changeSet id="013-04-add-foreign-key-cours-classe" author="ecole">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_cours_classe"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint
+            baseTableName="cours"
+            baseColumnNames="classe_id"
+            constraintName="fk_cours_classe"
+            referencedTableName="classe"
+            referencedColumnNames="id"
+            onDelete="CASCADE"
+            onUpdate="CASCADE"/>
+    </changeSet>
+
+    <!-- Étape 5: Créer un index pour la performance -->
+    <changeSet id="013-05-create-index-cours-classe" author="ecole">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists tableName="cours" indexName="idx_cours_classe_id"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="idx_cours_classe_id" tableName="cours">
+            <column name="classe_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

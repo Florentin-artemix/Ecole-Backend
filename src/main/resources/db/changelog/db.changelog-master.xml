@@ -14,5 +14,11 @@
     <include file="db/changelog/07-insert-sample-utilisateurs.xml"/>
     <include file="db/changelog/08-insert-sample-cours-with-professeurs.xml"/>
     <include file="db/changelog/09-fix-note-valeur-column-type.xml"/>
+    <include file="db/changelog/10-create-classe-table.xml"/>
+    <include file="db/changelog/11-create-ecole-table.xml"/>
+    <include file="db/changelog/12-insert-default-data.xml"/>
+    <include file="db/changelog/13-add-classe-id-to-cours.xml"/>
+    <include file="db/changelog/14-add-foreign-keys-to-eleve.xml"/>
+    <include file="db/changelog/15-cleanup-old-columns.xml"/>
 
 </databaseChangeLog>
