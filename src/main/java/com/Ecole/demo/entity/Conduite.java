@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.Ecole.demo.config.converter.TypeConduiteAttributeConverter;
 
 @Entity
 @Table(name = "conduite")
@@ -27,7 +28,7 @@ public class Conduite {
     private Utilisateur professeur;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = TypeConduiteAttributeConverter.class)
     @Column(nullable = false)
     private TypeConduite typeConduite;
 

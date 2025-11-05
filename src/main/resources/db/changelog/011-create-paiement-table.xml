@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="011-create-paiement-table" author="system">
+        <createTable tableName="paiement">
+            <column name="id" type="BIGSERIAL" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="eleve_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_paiement_eleve" references="eleve(id)"/>
+            </column>
+            <column name="motif_paiement_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_paiement_motif" references="motif_paiement(id)"/>
+            </column>
+            <column name="montant_paye" type="DECIMAL(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_paiement" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reference_paiement" type="VARCHAR(100)"/>
+            <column name="mode_paiement" type="VARCHAR(50)"/>
+            <column name="remarque" type="VARCHAR(500)"/>
+            <column name="recu_par" type="VARCHAR(100)"/>
+            <column name="date_creation" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

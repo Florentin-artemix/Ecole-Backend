@@ -34,9 +34,17 @@ public class BulletinService {
     @Autowired
     private ConduiteService conduiteService;
     
+    @Autowired
+    private EleveService eleveService;
+    
     public BulletinDTO genererBulletin(Long eleveId, Periode periode) {
         Eleve eleve = eleveRepository.findById(eleveId)
                 .orElseThrow(() -> new RuntimeException("Elève non trouvé avec l'ID: " + eleveId));
+        
+        // VÉRIFICATION IMPORTANTE : L'élève peut-il consulter son bulletin ?
+        if (!eleveService.peutConsulterBulletin(eleveId)) {
+            throw new RuntimeException("Accès refusé : L'élève n'est pas en ordre de paiement et n'a pas de dérogation valide. Veuillez régulariser votre situation ou demander une dérogation.");
+        }
         
         List<Note> notes = noteRepository.findByEleveIdAndPeriode(eleveId, periode);
         

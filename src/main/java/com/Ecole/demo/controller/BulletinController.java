@@ -14,12 +14,23 @@ public class BulletinController {
     @Autowired
     private BulletinService bulletinService;
     
-    @GetMapping("/{eleveId}/{periode}")
+    @GetMapping("/eleve/{eleveId}/periode/{periode}")
     public ResponseEntity<BulletinDTO> getBulletin(
             @PathVariable Long eleveId,
             @PathVariable String periode) {
         
-        Periode periodeEnum = Periode.valueOf(periode.toUpperCase());
+        Periode periodeEnum = Periode.parse(periode);
+        BulletinDTO bulletin = bulletinService.genererBulletin(eleveId, periodeEnum);
+        return ResponseEntity.ok(bulletin);
+    }
+    
+    // Keep backward compatibility with old endpoint format
+    @GetMapping("/{eleveId}/{periode}")
+    public ResponseEntity<BulletinDTO> getBulletinLegacy(
+            @PathVariable Long eleveId,
+            @PathVariable String periode) {
+        
+        Periode periodeEnum = Periode.parse(periode);
         BulletinDTO bulletin = bulletinService.genererBulletin(eleveId, periodeEnum);
         return ResponseEntity.ok(bulletin);
     }

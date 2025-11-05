@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-create-ecole-table" author="system">
+        <createTable tableName="ecole">
+            <column name="id" type="BIGSERIAL" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nom_ecole" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code_ecole" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="ville" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="commune_territoire" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="adresse" type="VARCHAR(255)"/>
+            <column name="telephone" type="VARCHAR(20)"/>
+            <column name="email" type="VARCHAR(100)"/>
+            <column name="devise" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

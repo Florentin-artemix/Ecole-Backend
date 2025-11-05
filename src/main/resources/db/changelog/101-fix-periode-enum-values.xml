@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="101-fix-periode-enum-values" author="system">
+        <!-- Normalize legacy enum strings to current enum values -->
+        <update tableName="note">
+            <column name="periode" value="PREMIERE"/>
+            <where>periode IN ('PREMIERE_PERIODE','1ERE_PERIODE','1ERE')</where>
+        </update>
+        <update tableName="note">
+            <column name="periode" value="DEUXIEME"/>
+            <where>periode IN ('DEUXIEME_PERIODE','2EME_PERIODE','2EME')</where>
+        </update>
+        <update tableName="note">
+            <column name="periode" value="TROISIEME"/>
+            <where>periode IN ('TROISIEME_PERIODE','3EME_PERIODE','3EME')</where>
+        </update>
+
+        <update tableName="conduite">
+            <column name="periode" value="PREMIERE"/>
+            <where>periode IN ('PREMIERE_PERIODE','1ERE_PERIODE','1ERE')</where>
+        </update>
+        <update tableName="conduite">
+            <column name="periode" value="DEUXIEME"/>
+            <where>periode IN ('DEUXIEME_PERIODE','2EME_PERIODE','2EME')</where>
+        </update>
+        <update tableName="conduite">
+            <column name="periode" value="TROISIEME"/>
+            <where>periode IN ('TROISIEME_PERIODE','3EME_PERIODE','3EME')</where>
+        </update>
+
+        <update tableName="motif_paiement">
+            <column name="periode" value="PREMIERE"/>
+            <where>periode IN ('PREMIERE_PERIODE','1ERE_PERIODE','1ERE')</where>
+        </update>
+        <update tableName="motif_paiement">
+            <column name="periode" value="DEUXIEME"/>
+            <where>periode IN ('DEUXIEME_PERIODE','2EME_PERIODE','2EME')</where>
+        </update>
+        <update tableName="motif_paiement">
+            <column name="periode" value="TROISIEME"/>
+            <where>periode IN ('TROISIEME_PERIODE','3EME_PERIODE','3EME')</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

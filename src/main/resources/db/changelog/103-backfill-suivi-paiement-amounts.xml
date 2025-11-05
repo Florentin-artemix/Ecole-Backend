@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="103-backfill-suivi-paiement-amounts" author="system">
+        <preConditions onFail="MARK_RAN"/>
+
+        <!-- 1) Initialiser montant_a_payer depuis motif_paiement si NULL/0 -->
+        <sql dbms="postgresql">
+            UPDATE suivi_paiement sp
+            SET montant_a_payer = mp.montant_total
+            FROM motif_paiement mp
+            WHERE sp.motif_paiement_id = mp.id
+              AND (sp.montant_a_payer IS NULL OR sp.montant_a_payer = 0);
+        </sql>
+
+        <!-- 2) Initialiser montant_paye à 0 si NULL -->
+        <sql dbms="postgresql">
+            UPDATE suivi_paiement
+            SET montant_paye = 0
+            WHERE montant_paye IS NULL;
+        </sql>
+
+        <!-- 3) Recalculer montant_restant = GREATEST(montant_a_payer - montant_paye, 0) -->
+        <sql dbms="postgresql">
+            UPDATE suivi_paiement
+            SET montant_restant = GREATEST(montant_a_payer - montant_paye, 0);
+        </sql>
+
+        <!-- 4) Mettre à jour statut_paiement et est_en_ordre -->
+        <sql dbms="postgresql">
+            UPDATE suivi_paiement
+            SET statut_paiement = CASE
+                WHEN montant_restant = 0 THEN 'PAYE_COMPLET'
+                WHEN montant_paye > 0 THEN 'PAIEMENT_PARTIEL'
+                ELSE 'NON_PAYE'
+            END;
+        </sql>
+        <sql dbms="postgresql">
+            UPDATE suivi_paiement
+            SET est_en_ordre = CASE WHEN montant_restant = 0 THEN TRUE ELSE FALSE END;
+        </sql>
+
+        <!-- 5) Mettre à jour date_maj -->
+        <sql dbms="postgresql">
+            UPDATE suivi_paiement SET date_maj = NOW();
+        </sql>
+    </changeSet>
+</databaseChangeLog>

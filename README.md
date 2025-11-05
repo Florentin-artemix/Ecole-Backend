@@ -1,5 +1,7 @@
 # 🎓 APPLICATION DE GESTION DE BULLETINS SCOLAIRES
 
+> Note importante (Frontend): Toute la documentation d’intégration frontend (endpoints, schémas JSON d’entrée/sortie, énumérations et erreurs) est désormais centralisée dans le fichier FRONTEND_API_CONTRACT.md. Utilisez exclusivement ce document.
+
 ## 📌 Vue d'ensemble
 
 Application complète Spring Boot 3 + React pour la gestion des bulletins scolaires avec:
@@ -272,7 +274,7 @@ Les tables seront créées automatiquement via les fichiers XML dans `src/main/r
 
 ## 🎨 Configuration du Frontend React
 
-Voir le fichier **GUIDE_FRONTEND_REACT.md** pour les détails complets
+Voir le fichier FRONTEND_API_CONTRACT.md (section Endpoints par domaine et Schémas JSON) pour les détails complets d’intégration.
 
 ### Installation rapide
 ```bash

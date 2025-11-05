@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="102-fix-typeconduite-values" author="system">
+        <!-- Normaliser les valeurs de conduite (féminin/espace) vers les enums canoniques -->
+        <update tableName="conduite">
+            <column name="type_conduite" value="BON"/>
+            <where>type_conduite IN ('BONNE',' BONNE ','bonne','BonNE')</where>
+        </update>
+        <update tableName="conduite">
+            <column name="type_conduite" value="TRES_BON"/>
+            <where>type_conduite IN ('TRES BON','TRES  BON','TRES_BONNE','TRES BONNE','tres_bonne')</where>
+        </update>
+        <update tableName="conduite">
+            <column name="type_conduite" value="ASSEZ_BON"/>
+            <where>type_conduite IN ('ASSEZ BON','ASSEZ  BON','ASSEZ_BONNE','ASSEZ BONNE')</where>
+        </update>
+        <update tableName="conduite">
+            <column name="type_conduite" value="MAUVAIS"/>
+            <where>type_conduite IN ('MAUVAISE','mauvaise')</where>
+        </update>
+        <!-- Nettoyage de variantes parasites (espaces multiples) vers forme canonique -->
+        <update tableName="conduite">
+            <column name="type_conduite" value="TRES_BON"/>
+            <where>type_conduite = 'TRES__BON'</where>
+        </update>
+        <update tableName="conduite">
+            <column name="type_conduite" value="ASSEZ_BON"/>
+            <where>type_conduite = 'ASSEZ__BON'</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

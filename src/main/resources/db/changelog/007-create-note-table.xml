@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="007-create-note-table" author="system">
+        <createTable tableName="note">
+            <column name="id" type="BIGSERIAL" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="eleve_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_note_eleve" references="eleve(id)"/>
+            </column>
+            <column name="cours_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_note_cours" references="cours(id)"/>
+            </column>
+            <column name="valeur" type="DECIMAL(5,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="periode" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

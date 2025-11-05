@@ -79,4 +79,26 @@ public class Eleve {
     @JsonIgnore
     @OneToMany(mappedBy = "eleve", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Note> notes;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "eleve", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<SuiviPaiement> suivisPaiement;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "eleve", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Paiement> paiements;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "eleve", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Derogation> derogations;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "statut_paiement_global", length = 20)
+    private StatutPaiementGlobal statutPaiementGlobal = StatutPaiementGlobal.NON_EN_ORDRE;
+    
+    public enum StatutPaiementGlobal {
+        EN_ORDRE,
+        NON_EN_ORDRE,
+        AVEC_DEROGATION
+    }
 }

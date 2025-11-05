@@ -8,8 +8,11 @@ import com.Ecole.demo.entity.Eleve;
 import com.Ecole.demo.repository.ClasseRepository;
 import com.Ecole.demo.repository.EcoleRepository;
 import com.Ecole.demo.repository.EleveRepository;
+import com.Ecole.demo.repository.SuiviPaiementRepository;
+import com.Ecole.demo.repository.DerogationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +28,12 @@ public class EleveService {
     
     @Autowired
     private ClasseRepository classeRepository;
+    
+    @Autowired
+    private SuiviPaiementRepository suiviPaiementRepository;
+    
+    @Autowired
+    private DerogationRepository derogationRepository;
     
     public EleveDTO createEleve(EleveDTO eleveDTO) {
         Eleve eleve = new Eleve();
@@ -155,5 +164,55 @@ public class EleveService {
                 eleve.getVille(),
                 eleve.getCommune_territoire()
         );
+    }
+    
+    /**
+     * Met à jour le statut de paiement global d'un élève
+     * EN_ORDRE : tous les paiements sont à jour
+     * AVEC_DEROGATION : a une dérogation valide
+     * NON_EN_ORDRE : a des paiements en retard et pas de dérogation
+     */
+    @Transactional
+    public void mettreAJourStatutPaiementGlobal(Long eleveId) {
+        Eleve eleve = eleveRepository.findById(eleveId)
+                .orElseThrow(() -> new RuntimeException("Élève non trouvé avec l'ID: " + eleveId));
+        
+        // Vérifier s'il y a une dérogation valide
+        boolean aDerogationValide = derogationRepository.findDerogationValideParEleve(eleveId)
+                .map(d -> d.estValide())
+                .orElse(false);
+        
+        if (aDerogationValide) {
+            eleve.setStatutPaiementGlobal(Eleve.StatutPaiementGlobal.AVEC_DEROGATION);
+        } else {
+            // Vérifier si tous les paiements sont en ordre
+            boolean toutEnOrdre = suiviPaiementRepository.estToutEnOrdre(eleveId);
+            
+            if (toutEnOrdre) {
+                eleve.setStatutPaiementGlobal(Eleve.StatutPaiementGlobal.EN_ORDRE);
+            } else {
+                eleve.setStatutPaiementGlobal(Eleve.StatutPaiementGlobal.NON_EN_ORDRE);
+            }
+        }
+        
+        eleveRepository.save(eleve);
+    }
+    
+    /**
+     * Vérifie si un élève peut consulter son bulletin
+     * Un élève peut consulter son bulletin s'il est EN_ORDRE ou AVEC_DEROGATION valide
+     */
+    public boolean peutConsulterBulletin(Long eleveId) {
+        Eleve eleve = eleveRepository.findById(eleveId)
+                .orElseThrow(() -> new RuntimeException("Élève non trouvé avec l'ID: " + eleveId));
+        
+        // Mettre à jour le statut avant de vérifier
+        mettreAJourStatutPaiementGlobal(eleveId);
+        
+        // Recharger l'élève après mise à jour
+        eleve = eleveRepository.findById(eleveId).get();
+        
+        return eleve.getStatutPaiementGlobal() == Eleve.StatutPaiementGlobal.EN_ORDRE ||
+               eleve.getStatutPaiementGlobal() == Eleve.StatutPaiementGlobal.AVEC_DEROGATION;
     }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="006-create-parent-eleve-table" author="system">
+        <createTable tableName="parent_eleve">
+            <column name="id" type="BIGSERIAL" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="parent_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_parent_eleve_parent" references="utilisateur(id)"/>
+            </column>
+            <column name="eleve_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_parent_eleve_eleve" references="eleve(id)"/>
+            </column>
+            <column name="lien_parente" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

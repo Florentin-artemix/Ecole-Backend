@@ -25,8 +25,11 @@ public class CorsConfig implements WebMvcConfigurer {
         // Allow credentials
         config.setAllowCredentials(true);
         
-        // Use allowedOriginPatterns instead of allowedOrigins when credentials are enabled
-        config.setAllowedOriginPatterns(Arrays.asList(allowedOrigins.split(",")));
+        // Convert comma-separated string to list and use allowedOriginPatterns
+        String[] origins = allowedOrigins.split(",");
+        for (String origin : origins) {
+            config.addAllowedOriginPattern(origin.trim());
+        }
         
         // Allow all headers
         config.addAllowedHeader("*");
@@ -45,8 +48,14 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        String[] origins = allowedOrigins.split(",");
+        String[] trimmedOrigins = new String[origins.length];
+        for (int i = 0; i < origins.length; i++) {
+            trimmedOrigins[i] = origins[i].trim();
+        }
+        
         registry.addMapping("/**")
-                .allowedOriginPatterns(allowedOrigins.split(","))
+                .allowedOriginPatterns(trimmedOrigins)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD")
                 .allowedHeaders("*")
                 .allowCredentials(true)

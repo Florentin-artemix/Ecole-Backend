@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="100-insert-test-data" author="system">
+        <validCheckSum>9:d1891c7083b020e4033dd91fd619d422</validCheckSum>
+        
+        <!-- Ecole -->
+        <insert tableName="ecole">
+            <column name="nom_ecole" value="Institut Technique Saint-Joseph"/>
+            <column name="code_ecole" value="ITSJ2024"/>
+            <column name="ville" value="Kinshasa"/>
+            <column name="commune_territoire" value="Gombe"/>
+            <column name="adresse" value="123 Avenue de l'Education"/>
+            <column name="telephone" value="+243 123 456 789"/>
+            <column name="email" value="contact@itsj.cd"/>
+            <column name="devise" value="Excellence et Discipline"/>
+        </insert>
+
+        <!-- Classes -->
+        <insert tableName="classe">
+            <column name="nom" value="6ème Primaire"/>
+            <column name="description" value="Sixième année du primaire"/>
+        </insert>
+        <insert tableName="classe">
+            <column name="nom" value="1ère Secondaire"/>
+            <column name="description" value="Première année du secondaire"/>
+        </insert>
+
+        <!-- Utilisateurs -->
+        <insert tableName="utilisateur">
+            <column name="nom_complet" value="Admin Principal"/>
+            <column name="role" value="ADMIN"/>
+            <column name="telephone" value="+243900000001"/>
+            <column name="email" value="admin@itsj.cd"/>
+            <column name="mot_de_passe" value="$2a$10$dummyHash"/>
+            <column name="actif" valueBoolean="true"/>
+        </insert>
+        <insert tableName="utilisateur">
+            <column name="nom_complet" value="Prof. Marie Kabongo"/>
+            <column name="role" value="PROFESSEUR"/>
+            <column name="telephone" value="+243900000002"/>
+            <column name="email" value="prof.math@itsj.cd"/>
+            <column name="mot_de_passe" value="$2a$10$dummyHash"/>
+            <column name="actif" valueBoolean="true"/>
+        </insert>
+        <insert tableName="utilisateur">
+            <column name="nom_complet" value="Pierre Tshimanga"/>
+            <column name="role" value="PARENT"/>
+            <column name="telephone" value="+243900000003"/>
+            <column name="email" value="parent1@email.cd"/>
+            <column name="mot_de_passe" value="$2a$10$dummyHash"/>
+            <column name="actif" valueBoolean="true"/>
+        </insert>
+
+        <!-- Eleves -->
+        <insert tableName="eleve">
+            <column name="nom" value="Tshimanga"/>
+            <column name="postnom" value="Kalala"/>
+            <column name="prenom" value="Michel"/>
+            <column name="sexe" value="M"/>
+            <column name="date_naissance" value="2012-05-15"/>
+            <column name="lieu_naissance" value="Kinshasa"/>
+            <column name="numero_permanent" value="EL2024001"/>
+            <column name="classe_id" valueNumeric="1"/>
+            <column name="ecole_id" valueNumeric="1"/>
+            <column name="code" value="TSH001"/>
+            <column name="ville" value="Kinshasa"/>
+            <column name="commune_territoire" value="Gombe"/>
+            <column name="statut_paiement_global" value="NON_EN_ORDRE"/>
+        </insert>
+        <insert tableName="eleve">
+            <column name="nom" value="Mbuyi"/>
+            <column name="postnom" value="Mukendi"/>
+            <column name="prenom" value="Grace"/>
+            <column name="sexe" value="F"/>
+            <column name="date_naissance" value="2012-08-22"/>
+            <column name="lieu_naissance" value="Lubumbashi"/>
+            <column name="numero_permanent" value="EL2024002"/>
+            <column name="classe_id" valueNumeric="1"/>
+            <column name="ecole_id" valueNumeric="1"/>
+            <column name="code" value="MBU002"/>
+            <column name="ville" value="Kinshasa"/>
+            <column name="commune_territoire" value="Lemba"/>
+            <column name="statut_paiement_global" value="EN_ORDRE"/>
+        </insert>
+
+        <!-- Parent-Eleve -->
+        <insert tableName="parent_eleve">
+            <column name="parent_id" valueNumeric="3"/>
+            <column name="eleve_id" valueNumeric="1"/>
+            <column name="lien_parente" value="Père"/>
+        </insert>
+
+        <!-- Cours -->
+        <insert tableName="cours">
+            <column name="nom_cours" value="Mathématiques"/>
+            <column name="ponderation" valueNumeric="60"/>
+            <column name="classe_id" valueNumeric="1"/>
+            <column name="professeur_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="cours">
+            <column name="nom_cours" value="Français"/>
+            <column name="ponderation" valueNumeric="60"/>
+            <column name="classe_id" valueNumeric="1"/>
+            <column name="professeur_id" valueNumeric="2"/>
+        </insert>
+
+        <!-- Notes -->
+        <insert tableName="note">
+            <column name="eleve_id" valueNumeric="1"/>
+            <column name="cours_id" valueNumeric="1"/>
+            <column name="valeur" valueNumeric="45.50"/>
+            <column name="periode" value="PREMIERE"/>
+        </insert>
+        <insert tableName="note">
+            <column name="eleve_id" valueNumeric="1"/>
+            <column name="cours_id" valueNumeric="2"/>
+            <column name="valeur" valueNumeric="52.00"/>
+            <column name="periode" value="PREMIERE"/>
+        </insert>
+
+        <!-- Conduite -->
+        <insert tableName="conduite">
+            <column name="eleve_id" valueNumeric="1"/>
+            <column name="professeur_id" valueNumeric="2"/>
+            <column name="type_conduite" value="BON"/>
+            <column name="periode" value="PREMIERE"/>
+            <column name="commentaire" value="Bon élève, assidu et appliqué"/>
+        </insert>
+
+        <!-- Motifs Paiement -->
+        <insert tableName="motif_paiement">
+            <column name="libelle" value="Frais Scolaires Novembre 2024"/>
+            <column name="montant_total" valueNumeric="150.00"/>
+            <column name="description" value="Frais scolaires mensuels"/>
+            <column name="periode" value="PREMIERE"/>
+            <column name="annee_scolaire" value="2024-2025"/>
+            <column name="date_creation" value="2024-11-01T08:00:00"/>
+            <column name="date_echeance" value="2024-11-30T23:59:59"/>
+            <column name="actif" valueBoolean="true"/>
+        </insert>
+        <insert tableName="motif_paiement">
+            <column name="libelle" value="Minerval Annuel 2024-2025"/>
+            <column name="montant_total" valueNumeric="500.00"/>
+            <column name="description" value="Minerval pour l'année scolaire complète"/>
+            <column name="annee_scolaire" value="2024-2025"/>
+            <column name="date_creation" value="2024-09-01T08:00:00"/>
+            <column name="date_echeance" value="2024-12-31T23:59:59"/>
+            <column name="actif" valueBoolean="true"/>
+        </insert>
+
+        <!-- Suivi Paiement -->
+        <insert tableName="suivi_paiement">
+            <column name="eleve_id" valueNumeric="1"/>
+            <column name="motif_paiement_id" valueNumeric="1"/>
+            <column name="montant_a_payer" valueNumeric="150.00"/>
+            <column name="montant_paye" valueNumeric="50.00"/>
+            <column name="montant_restant" valueNumeric="100.00"/>
+            <column name="statut_paiement" value="PAIEMENT_PARTIEL"/>
+            <column name="est_en_ordre" valueBoolean="false"/>
+            <column name="date_dernier_paiement" value="2024-11-01T10:30:00"/>
+            <column name="date_creation" value="2024-11-01T08:00:00"/>
+            <column name="date_maj" value="2024-11-01T10:30:00"/>
+        </insert>
+
+        <!-- Paiement -->
+        <insert tableName="paiement">
+            <column name="eleve_id" valueNumeric="1"/>
+            <column name="motif_paiement_id" valueNumeric="1"/>
+            <column name="montant_paye" valueNumeric="50.00"/>
+            <column name="date_paiement" value="2024-11-01T10:30:00"/>
+            <column name="reference_paiement" value="PAY2024001"/>
+            <column name="mode_paiement" value="Espèces"/>
+            <column name="remarque" value="Paiement partiel"/>
+            <column name="recu_par" value="Caissier Principal"/>
+            <column name="date_creation" value="2024-11-01T10:30:00"/>
+        </insert>
+
+        <!-- Derogation -->
+        <insert tableName="derogation">
+            <column name="eleve_id" valueNumeric="1"/>
+            <column name="motif_paiement_id" valueNumeric="1"/>
+            <column name="motif" value="Difficultés financières temporaires suite à perte d'emploi"/>
+            <column name="statut" value="EN_ATTENTE"/>
+            <column name="date_demande" value="2024-11-01T09:00:00"/>
+            <column name="active" valueBoolean="false"/>
+            <column name="est_expiree" valueBoolean="false"/>
+            <column name="date_creation" value="2024-11-01T09:00:00"/>
+            <column name="date_maj" value="2024-11-01T09:00:00"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
