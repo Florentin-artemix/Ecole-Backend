@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database Container
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2025
+      POSTGRES_DB: Ecole
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - ecole-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d Ecole"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Spring Boot Application Container
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ..:/workspace:cached
+      - maven-cache:/root/.m2
+    command: sleep infinity
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/Ecole
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 2025
+    ports:
+      - "8080:8080"
+    networks:
+      - ecole-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres-data:
+  maven-cache:
+
+networks:
+  ecole-network:
+    driver: bridge
